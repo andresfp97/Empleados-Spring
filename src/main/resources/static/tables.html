@@ -366,21 +366,40 @@
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- Area de  Busqueda -->  
-                    <div class="search-area">
-                        <h2>Buscar Funcionarios</h2>
-                        <input type="text" id="searchId" placeholder="Buscar por ID">
-                        <button onclick="buscarPorId()">Buscar por ID</button>
-                        <br>
-                        <input type="text" id="searchNombre" placeholder="Buscar por Nombre">
-                        <button onclick="buscarPorNombre()">Buscar por Nombre</button>
-                        <br>
-                        <input type="text" id="searchDepartamento" placeholder="Buscar por Departamento">
-                        <button onclick="buscarPorDepartamento()">Buscar por Departamento</button>
-                        <br>
-                        <button onclick="cargarTodosLosFuncionarios()">Cargar Todos</button>
-                    </div>
+                    <div class="search-area container mt-4">
+    <h2 class="mb-4">Buscar Funcionarios</h2>
 
+    <div class="mb-2 row g-2 align-items-center">
+        <div class="col-md-6">
+            <input type="text" id="searchId" class="form-control" placeholder="Buscar por ID">
+        </div>
+        <div class="col-md-6">
+            <button onclick="buscarPorId()" class="btn btn-primary w-100">Buscar por ID</button>
+        </div>
+    </div>
 
+    <div class="mb-2 row g-2 align-items-center">
+        <div class="col-md-6">
+            <input type="text" id="searchNombre" class="form-control" placeholder="Buscar por Nombre">
+        </div>
+        <div class="col-md-6">
+            <button onclick="buscarPorNombre()" class="btn btn-primary w-100">Buscar por Nombre</button>
+        </div>
+    </div>
+
+    <div class="mb-2 row g-2 align-items-center">
+        <div class="col-md-6">
+            <input type="text" id="searchDepartamento" class="form-control" placeholder="Buscar por Cuidad">
+        </div>
+        <div class="col-md-6">
+            <button onclick="buscarPorDepartamento()" class="btn btn-primary w-100">Buscar por Cuidad</button>
+        </div>
+    </div>
+
+    <div class="mt-3 text-center">
+        <button onclick="cargarTodosLosempleados()" class="btn btn-secondary">Cargar Todos</button>
+    </div>
+</div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">

@@ -2,18 +2,6 @@ const API_BASE_URL = '/api/v1/empleados'; // URL base de tu API
 const empleadosTableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
 let currentEmpleadosList = []; // Para almacenar la lista actual de Empleados
 
-// --- Funciones para mostrar mensajes ---
-function mostrarMensaje(texto, tipo = 'success') {
-    messageArea.textContent = texto;
-    messageArea.className = tipo; // 'success' o 'error'
-    setTimeout(() => {
-        messageArea.textContent = '';
-        messageArea.className = '';
-    }, 5000); // El mensaje desaparece después de 5 segundos
-}
-
-
-
 // --- Renderizar tabla de empleados (Optimizado con DocumentFragment) ---
 
 function renderizarTabla(empleados) {
@@ -188,7 +176,7 @@ async function buscarPorDepartamento() {
         return;
     }
     try {
-        const response = await fetch(`${API_BASE_URL}?departamento=${encodeURIComponent(depto)}`);
+        const response = await fetch(`${API_BASE_URL}?cuidad=${encodeURIComponent(depto)}`);
         if (response.status === 204) {
             renderizarTabla([]);
             mostrarMensaje(`No se encontraron empleados en el departamento "${depto}".`, 'success');
@@ -206,63 +194,8 @@ async function buscarPorDepartamento() {
     }
 }
 
-// --- Guardar (Crear o Actualizar) Funcionario ---
-async function guardarFuncionario() {
-    const id = document.getElementById('funcionarioId').value;
-    const funcionario = {
-        nombre: document.getElementById('nombre').value,
-        cargo: document.getElementById('cargo').value,
-        departamento: document.getElementById('departamento').value,
-        telefono: document.getElementById('telefono').value
-    };
 
-    if (!funcionario.nombre || !funcionario.cargo || !funcionario.departamento) {
-        mostrarMensaje('Nombre, Cargo y Departamento son obligatorios.', 'error');
-        return;
-    }
 
-    let url = API_BASE_URL;
-    let method = 'POST';
-
-    if (id) { 
-        url += `/${id}`;
-        method = 'PUT';
-    }
-
-    try {
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(funcionario)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.text(); 
-            throw new Error(`Error HTTP ${response.status}: ${response.statusText}. Detalles: ${errorData}`);
-        }
-
-        const resultado = await response.json(); 
-        mostrarMensaje(`Funcionario ${id ? 'actualizado' : 'creado'} con ID ${resultado.id}.`, 'success');
-        limpiarFormulario();
-        cargarTodosLosempleados(); 
-    } catch (error) {
-        console.error('Error al guardar funcionario:', error);
-        mostrarMensaje(`Error al guardar: ${error.message}`, 'error');
-    }
-}
-
-// --- Cargar datos de funcionario en el formulario para editar ---
-function cargarFuncionarioParaEditar(funcionario) {
-    document.getElementById('funcionarioId').value = funcionario.id;
-    document.getElementById('nombre').value = funcionario.nombre;
-    document.getElementById('cargo').value = funcionario.cargo;
-    document.getElementById('departamento').value = funcionario.departamento;
-    document.getElementById('telefono').value = funcionario.telefono;
-    mostrarMensaje(`Editando funcionario ID: ${funcionario.id}.`, 'success');
-    window.scrollTo(0, 0); 
-}
 
 // --- Eliminar Funcionario ---
 async function eliminarFuncionario(id) { // Ahora solo necesita el ID
